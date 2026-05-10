@@ -1,0 +1,11 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+ai_valuation/
+node_modules/
+dist/
+output/
+output_pages/
+temp/
+__pycache__/
+*.pyc
+*.pyd
+*.dll
