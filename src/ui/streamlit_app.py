@@ -55,6 +55,7 @@ def calculate_federal_separate(land_value, building_value):
         "LAND_REALIZABLE_VALUE": format_indian_number(land_realizable),
         "LAND_DISTRESS_VALUE": format_indian_number(land_distress),
         "BUILDING_MARKET_VALUE": format_indian_number(building_market),
+        "BUILDING_GROSS_VALUE":gross_building_value,
         "BUILDING_REALIZABLE_VALUE":format_indian_number(building_realizable),
         "BUILDING_DISTRESS_VALUE":format_indian_number( building_distress),
         "MARKET_VALUE": land_market + building_market,
@@ -175,9 +176,9 @@ BANK_TEMPLATES = {
         "LAND_ONLY": "templates/SBI/valuation_template1.docx",
         "LAND_BUILDING": "templates/SBI/valuation_template.docx",
     },
-    "HDFC Bank": {
-        "LAND_ONLY": "templates/HDFC/valuation_template1.docx",
-        "LAND_BUILDING": "templates/HDFC/valuation_template.docx",
+    "PNB Bank": {
+        "LAND_ONLY": "templates/PNB/valuation_template1.docx",
+        "LAND_BUILDING": "templates/PNB/valuation_template.docx",
     },
     "ICICI Bank": {
         "LAND_ONLY": "templates/ICICI/valuation_template1.docx",
@@ -266,6 +267,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     borrower_name = st.text_input("Borrower Name", merged_fields.get("borrower", ""))
+    owner_name = st.text_input("Owner Name", merged_fields.get("owner", ""))
     survey_no = st.text_input("Survey / Resurvey No", merged_fields.get("survey_no", ""))
     village = st.text_input("Village", merged_fields.get("village", ""))
     branch = st.text_input("Branch", merged_fields.get("branch", ""))
@@ -329,7 +331,7 @@ if st.button("📄 Generate Valuation Report"):
         gross_building_value = depreciated_building_value = 0
 
     federal_vals = {}
-    if selected_bank == "Federal Bank" and property_type == "Land + Building":
+    if selected_bank  in ["Federal Bank", "PNB"] and property_type == "Land + Building":
         federal_vals = calculate_federal_separate(total_land_value, depreciated_building_value)
         market_value = federal_vals["MARKET_VALUE"]
         realizable_value = federal_vals["REALIZABLE_VALUE"]
@@ -342,6 +344,7 @@ if st.button("📄 Generate Valuation Report"):
     context = {
         "REF_NO": ref_no,
         "BORROWER_NAME": borrower_name,
+        "OWNER_NAME":owner_name,
         "SURVEY_NO": survey_no,
         "VILLAGE": village,
         "TALUK": taluk,
@@ -375,8 +378,8 @@ if st.button("📄 Generate Valuation Report"):
         "DISTRESS_VALUE_WORDS": to_words(distress_value),
         **federal_vals,
         "PLACE": district,
-        "REPORT_DATE": datetime.now().strftime("%d-%m-%Y"),
-    }   
+        "REPORT_DATE": datetime.now().strftime("%d-%m-%Y")
+       }   
     # if uploaded_files:
     #     doc = Document()
 

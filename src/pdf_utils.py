@@ -5,7 +5,7 @@ def pdf_to_images(pdf_path, output_folder, dpi=200):
     os.makedirs(output_folder, exist_ok=True)
 
     # 👇 VERY IMPORTANT FOR WINDOWS FIX
-    poppler_path = r"C:\poppler\poppler-25.11.0\Library\bin"
+    poppler_path = r"C:\Release-26.02.0-0\poppler-26.02.0\Library\bin"
 
     pages = convert_from_path(
         pdf_path,

@@ -1,6 +1,9 @@
 @echo off
-cd /d "E:\vishnu viswas\ai_valuation"
 
-call ai_valuation\Scripts\activate
+cd /d D:\ai_valuation
 
-start "" streamlit run .\src\ui\streamlit_app.py
+call ai_valuation_env\Scripts\activate
+
+python -m streamlit run src\ui\streamlit_app.py
+
+pause

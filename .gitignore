@@ -9,3 +9,5 @@ __pycache__/
 *.pyc
 *.pyd
 *.dll
+ai_valuation_env/
+
